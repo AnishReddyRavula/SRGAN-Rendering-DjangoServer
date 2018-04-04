@@ -1,0 +1,113 @@
+{% extends "render_image/index.html" %}
+{% block content %}
+{% load staticfiles %}
+<script type="text/javascript">
+$(document).ready(function() {
+  $("#message").hide();
+  $("#error_message").hide();
+  $("#upload_file").change(function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = imageIsLoaded;
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+
+    function imageIsLoaded(e) {
+    $('#myImg').attr('src', e.target.result);
+    };
+    //
+	$("#upload_form").submit(function(e) {
+    e.preventDefault();
+    var data = new FormData(this);
+    file_no = document.getElementById("upload_file").files.length;
+    if(file_no == 0 || file_no > 1){
+      $("#error_message").show();
+      return;
+    }
+    $("#error_message").hide();
+    $("#message").show();
+    $("#header_message").html("Just one second");
+    $("#p_content").html("We're fetching that content for you.");
+    $("#loading").addClass("notched circle loading");
+    $("#loading").removeClass("thumbs up");
+
+
+
+    
+
+    //saving formid and formdetails for further use
+    // window.alert("lol");
+    
+   
+    //console.log(formDetails);
+   $.ajax({
+      type: "POST",
+      url: '{% url 'upload_ajax' %}',
+      dataType: 'JSON',
+      data: data,
+      method:'POST',
+      processData: false,
+      contentType: false,
+      success: function (data) {  
+        console.log("sf");
+        $("#header_message").html("Enhanced.")
+        $("#p_content").html("Download the image <a href=\"/download_image\" target=\"_blank\">here</a>.")
+        $("#loading").removeClass("loading");
+        $("#loading").removeClass("notched circle");
+        $("#loading").addClass("thumbs up");
+
+         
+       },
+      // error: function(jqXHR, text, error){
+      //       // Displaying if there are any errors
+      //         console.log("There was some error, please refresh the page and try again. Sorry for the inconvience.");
+      //   }
+    });
+    return false;
+});
+});
+</script>
+<div class="ui container">
+  <div class="ui visible message" id="error_message">
+    <p>Please select an image</p>
+  </div>
+   <div class="ui icon message" id="message">
+    <i class="notched circle icon" id="loading"></i>
+    <div class="content">
+      <div class="header" id="header_message">
+        Just one second
+      </div>
+      <p id="p_content">We're fetching that content for you.</p>
+    </div>
+  </div><h1>Generating Higher Resolution Images</h1>
+  <h2 style="text-align: center;">Enhances the resolution of input image</h2>
+  
+  <img class=" large ui image centered" id="myImg" src="{% static 'images/na.png' %}">
+  <br>
+   <center>
+   	<form id="upload_form" enctype="multipart/form-data">
+   		{% csrf_token %}
+	  <div class="ui action input">
+	  		<input type="text" placeholder="File 2" readonly>
+	  		<input type="file" name="file2" id="upload_file">
+
+		  		<div class="attach icon ">
+		    <!-- <i class="attach icon"></i> -->
+		    
+	  
+		    		
+		    
+		  </div>
+		  <button class="ui button" type="submit">Enhance Image</button>
+
+			</div>
+	</form>
+ <br>
+</center>
+
+
+
+</div>
+
+{% endblock %}

@@ -3,13 +3,13 @@ from __future__ import division
 from __future__ import print_function
 
 import tensorflow as tf
-import tensorflow.contrib.slim as slim
-import os
-from lib.model import data_loader, generator, SRGAN, test_data_loader, inference_data_loader, save_images, SRResnet
-from lib.ops import *
-import math
-import time
-import numpy as np
+# import tensorflow.contrib.slim as slim
+# import os
+# from lib.model import data_loader, generator, SRGAN, test_data_loader, inference_data_loader, save_images, SRResnet
+# from lib.ops import *
+# import math
+# import time
+# import numpy as np
 
 Flags = tf.app.flags
 
@@ -58,7 +58,8 @@ Flags.DEFINE_integer('save_freq', 10000, 'The frequency of saving images')
 
 
 FLAGS = Flags.FLAGS
-
+print(type(FLAGS.checkpoint))
+exit()
 # Print the configuration of the model
 print_configuration_op(FLAGS)
 
