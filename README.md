@@ -52,8 +52,9 @@ The result on BSD100, Set14, Set5 will be reported later. The code is highly ins
 </table>
 
 ### Denpendency
-* python2.7
+* python2.7 or 3.5 (for windows)
 * tensorflow (tested on r1.0, r1.2)
+* django
 * Download and extract the pre-trained model from my [google drive](https://drive.google.com/a/gapp.nthu.edu.tw/uc?id=0BxRIhBA0x8lHNDJFVjJEQnZtcmc&export=download)
 * Download the VGG19 weights from the [TF-slim models](http://download.tensorflow.org/models/vgg_19_2016_08_28.tar.gz)
 * The code is tested on:
@@ -344,6 +345,14 @@ The training process in the tensorboard should be like this
 	</tr>
 </table>
 
+
+### Website for production rendering
+After installing django go with the following steps:
+* Make migrations and excute this command in the ```SRGAN-tensorflow_ROOT```
+```bash
+python manage.py migrate
+python manage.py runserver
+```
 ### More result on benchmark
 
 #### Coming soon!!!
