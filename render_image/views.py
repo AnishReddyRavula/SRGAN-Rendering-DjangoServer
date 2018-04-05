@@ -18,7 +18,7 @@ def index(request):
 def upload_img(request):
 	start_time = time.time()
 	print(request.FILES)
-	size = 400, 400
+	size = 600, 600
 	im = Image.open(request.FILES['file2']).convert('RGB')
 	if im.size > (400, 400):
 		im.thumbnail(size, Image.ANTIALIAS)
