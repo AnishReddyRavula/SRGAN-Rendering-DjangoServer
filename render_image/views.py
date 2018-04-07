@@ -20,7 +20,8 @@ def upload_img(request):
 	print(request.FILES)
 	size = 600, 600
 	im = Image.open(request.FILES['file2']).convert('RGB')
-	if im.size > (400, 400):
+	if im.size > (600, 600):
+		print("________________downscaling the image _________")
 		im.thumbnail(size, Image.ANTIALIAS)
 	im = np.array(im)
 	
